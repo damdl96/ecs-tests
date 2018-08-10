@@ -20,13 +20,16 @@ public class MTax implements Constant {
             for (XTax tax : xTaxList) {
                 if(tax.getId() != null){
                     validIds.add(tax.getId().toString());
+                    continue;
                 }
                 if(tax.getAmount() == null) {
                     errorList.add("El importe es obligatorio");
+                    continue;
                 }
 
                 if(tax.getTax() == null) {
                     errorList.add("El impuesto es obligatorio");
+                    continue;
                 }
 //                else if(!taxCategoryList.contains(tax.getTax())) {
 //                    errorList.add("El impuesto no es un dato valido");
@@ -45,6 +48,7 @@ public class MTax implements Constant {
 
                 if(!tax.isLocal()){
                     cont++;
+                    continue;
                 }
             }
             if(cont<=0){
@@ -62,12 +66,12 @@ public class MTax implements Constant {
                         for(int i = 0; i < xTaxList.size(); i++){
                             if(xTaxList.get(i).getId() != null){
                                 xTaxList.get(i).setCreated(map_taxs.get(xTaxList.get(i).getId().toString()).getCreated());
+                                continue;
                             }
                         }
                     }
             }
-        }
-        else {
+        }else {
             errorList.add("El documento no tiene tasas");
         }
 
