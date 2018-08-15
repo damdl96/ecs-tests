@@ -24,6 +24,17 @@ public class MTax implements Constant {
       errorList.add("Debe de incluir al menos una tasa no local");
     }
 
+    public void noDataInList(){
+      errorList.add("No Existen datos dentro del documento.");
+    }
+
+    public void hashMapTax(){
+      HashMap<String, XTax> map_taxs = new HashMap<String, XTax>();
+      for(XTax tax: xt){
+          map_taxs.put(tax.getId().toString(), tax);
+      }
+    }
+
     public static List<String> validate(List<XTax> xTaxList) {
 
         List<String> errorList = new ArrayList<>();
@@ -61,12 +72,9 @@ public class MTax implements Constant {
             if(validIds.size() > 0){
                     List<XTax> xt = TaxsByListId(validIds, false);
                     if(xt.size() != validIds.size()){
-                        errorList.add("No Existen datos guardados previamente");
+                        noDataInList();
                     }else{
-                        HashMap<String, XTax> map_taxs = new HashMap<String, XTax>();
-                        for(XTax tax: xt){
-                            map_taxs.put(tax.getId().toString(), tax);
-                        }
+                        hashMapTax();
                         for(int i = 0; i < xTaxList.size(); i++){
                             if(xTaxList.get(i).getId() != null){
                                 xTaxList.get(i).setCreated(map_taxs.get(xTaxList.get(i).getId().toString()).getCreated());
@@ -76,7 +84,7 @@ public class MTax implements Constant {
                     }
             }
         }else {
-            errorList.add("El documento no tiene tasas");
+            noDataInList();
         }
 
         return errorList;
