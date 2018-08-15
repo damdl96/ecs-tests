@@ -8,6 +8,22 @@ public class MTax implements Constant {
 
     }
 
+    public void taxListNotEmpty(){
+      validIds.add(tax.getId().toString());
+    }
+
+    public void amountNull(){
+      errorList.add("El importe es obligatorio");
+    }
+
+    public void taxNull(){
+      errorList.add("El impuesto es obligatorio");
+    }
+
+    public void noLocalTaxes(){
+      errorList.add("Debe de incluir al menos una tasa no local");
+    }
+
     public static List<String> validate(List<XTax> xTaxList) {
 
         List<String> errorList = new ArrayList<>();
@@ -16,20 +32,17 @@ public class MTax implements Constant {
 
         if(xTaxList != null && xTaxList.size() > 0) {
             List<String> validIds = new ArrayList<>();
-            int cont = 0;
+            boolean localTaxExists=false;
             for (XTax tax : xTaxList) {
                 if(tax.getId() != null){
-                    validIds.add(tax.getId().toString());
-                    continue;
+                    taxListNotEmpty();
                 }
                 if(tax.getAmount() == null) {
-                    errorList.add("El importe es obligatorio");
-                    continue;
+                    amountNull();
                 }
 
                 if(tax.getTax() == null) {
-                    errorList.add("El impuesto es obligatorio");
-                    continue;
+                    taxNull();
                 }
 //                else if(!taxCategoryList.contains(tax.getTax())) {
 //                    errorList.add("El impuesto no es un dato valido");
@@ -46,13 +59,12 @@ public class MTax implements Constant {
 //                    }
 //                }
 
-                if(!tax.isLocal()){
-                    cont++;
-                    continue;
+                if(tax.isLocal()){
+                    localTaxExists=true;
                 }
             }
-            if(cont<=0){
-                errorList.add("Debe de incluir al menos una tasa no local");
+            if(!localTaxExists){
+                noLocalTaxes();
             }
             if(validIds.size() > 0){
                     List<XTax> xt = TaxsByListId(validIds, false);
