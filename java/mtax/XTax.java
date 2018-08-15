@@ -11,7 +11,7 @@ public class XTax {
     private String version;
     private String createdBy;
     private String updatedBy;
-    private BigDecimal tasaOCuota;
+    private BigDecimal taxAmount;
     private BigDecimal amount;
     private BigDecimal base;
     private boolean trasladado;
@@ -71,12 +71,12 @@ public class XTax {
         this.updatedBy = updatedBy;
     }
 
-    public BigDecimal getTasaOCuota() {
-        return tasaOCuota;
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
     }
 
-    public void setTasaOCuota(BigDecimal tasaOCuota) {
-        this.tasaOCuota = tasaOCuota;
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 
     public BigDecimal getAmount() {
