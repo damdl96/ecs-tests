@@ -28,7 +28,7 @@ public class MTax implements Constant {
 
         List<String> errorList = new ArrayList<>();
 
-//        List<String> taxCategoryList = MInfoTaxCategory.getTaxCategoryStringList();
+//      List<String> taxCategoryList = MInfoTaxCategory.getTaxCategoryStringList();
 
         if(xTaxList != null && xTaxList.size() > 0) {
             List<String> validIds = new ArrayList<>();
@@ -47,20 +47,12 @@ public class MTax implements Constant {
 //                else if(!taxCategoryList.contains(tax.getTax())) {
 //                    errorList.add("El impuesto no es un dato valido");
 //                }
-
-//                if(tax.isLocal()){
-//                    if(tax.isTrasladado() && tax.getTaxAmount() == null ) {
-//                        errorList.add("El importe es obligatorio");
-//                    }
-//                }
-//                else {
-//                    if(tax.getTaxAmount() == null ) {
-//                        errorList.add("El importe es obligatorio");
-//                    }
-//                }
-
                 if(tax.isLocal()){
                     localTaxExists=true;
+                    if(tax.isTrasladado() && tax.getTaxAmount() == null )
+                      amountNull();
+                }else if(tax.getTaxAmount() == null){
+                  amountNull();
                 }
             }
             if(!localTaxExists){
