@@ -18,8 +18,8 @@ public class MTaxTest {
   public void testXtaxListTest (){
     boolean boolTest=false;
     for(xtax:testXtax){
-      if (xtax.getId!=null){
-        boolTest=True;
+      if (xtax.getId()!=null){
+        boolTest=true;
         break;
       }
     }
