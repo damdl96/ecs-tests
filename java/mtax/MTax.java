@@ -28,7 +28,7 @@ public class MTax implements Constant {
       errorList.add("No Existen datos dentro del documento.");
     }
 
-    public void hashMapTax(){
+    public void hashMapTax(List<XTax> xt){
       HashMap<String, XTax> map_taxs = new HashMap<String, XTax>();
       for(XTax tax: xt){
           map_taxs.put(tax.getId().toString(), tax);
@@ -74,7 +74,7 @@ public class MTax implements Constant {
                     if(xt.size() != validIds.size()){
                         noDataInList();
                     }else{
-                        hashMapTax();
+                        hashMapTax(xt);
                         for(int i = 0; i < xTaxList.size(); i++){
                             if(xTaxList.get(i).getId() != null){
                                 xTaxList.get(i).setCreated(map_taxs.get(xTaxList.get(i).getId().toString()).getCreated());
